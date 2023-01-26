@@ -1,43 +1,43 @@
+# built-in
 import time
 import traceback
 
 
+# topping
+from topping.field import ToppingField
+
+
 class ToppingModel:
     def __init__(self) -> None:
+        self.func = ToppingField("func")
         self.args = ToppingField("args")
         self.kwargs = ToppingField("kwargs")
         self.runtime = ToppingField("runtime")
         self.returns = ToppingField("returns")
         self.error = ToppingField("error")
 
-    def observe(self, func: callable, *args: any, **kwargs: any) -> any:
+    def observe(self, func: callable, *args: any, **kwargs: any) -> None:
         try:
             start_time = time.time()
 
+            self.func.update(func.__name__)
             self.args.update(args)
             self.kwargs.update(kwargs)
             self.returns.update(func(*args, **kwargs))
             self.runtime.update(time.time() - start_time)
 
         except:
-            self.error.update(traceback.format_exc())
+            error = traceback.format_exc()
+            error = error.split("\n")
+
+            del error[1:3]
+
+            error = "\n".join(error)
+
+            error = "".join(error)
+
+            self.error.update(error)
             self.returns.update(None)
 
-        print(f"args: {self.args.value}")
-        print(f"kwargs: {self.kwargs.value}")
-        print(f"runtime: {self.runtime.value}")
-        print(f"returns: {self.returns.value}")
-        print(f"error: {self.error.value}")
-
-        return self.returns
-
-
-class ToppingField:
-    def __init__(self, name, value=None) -> None:
-        self.name = name
-        self.value = value
-        self.updated = False
-
-    def update(self, value) -> None:
-        self.value = value
-        self.updated = True
+    def get_return(self) -> any:
+        return self.returns.value

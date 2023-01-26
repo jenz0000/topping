@@ -3,7 +3,8 @@ from topping import topping
 
 @topping
 def sum(a, b):
-    return a + b
+    bb(a, b)
+    return a + b + c
 
 
-sum(1, 3)
+sum(1, 4)

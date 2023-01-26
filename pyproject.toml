@@ -6,7 +6,8 @@ authors = ["jenz <2025.jenz@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
+rich = "^13.2.0"
 
 
 [build-system]
