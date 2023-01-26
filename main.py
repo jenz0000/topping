@@ -2,8 +2,8 @@ from topping import topping
 
 
 @topping
-def main():
-    print("hello world")
+def sum(a, b):
+    return a + b
 
 
-main()
+sum(1, 3)
