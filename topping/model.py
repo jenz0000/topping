@@ -20,21 +20,21 @@ class ToppingModel:
 
     def observe(self, func: callable, *args: any, **kwargs: any) -> None:
         try:
-            start_time = time.time()
-
+            # update fields value
             self.name.update(func.__name__)
             self.path.update(os.path.abspath(inspect.getfile(func)))
             self.args.update(args)
             self.kwargs.update(kwargs)
+
+            # set start time
+            self.start_time = time.time()
+
+            # call origin function!
             self.returns.update(func(*args, **kwargs))
-            self.runtime.update(time.time() - start_time)
-
-        except:
-            self.runtime.update(time.time() - start_time)
+        except Exception:
             self.update_error()
-
-    def get_return(self) -> any:
-        return self.returns.value
+        finally:
+            self.runtime.update(time.time() - self.start_time)
 
     def update_error(self):
         error = traceback.format_exc().split("\n")
@@ -45,3 +45,6 @@ class ToppingModel:
 
         error = "\n".join(error)
         self.error.update(error)
+
+    def get_return(self) -> any:
+        return self.returns.value
