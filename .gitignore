@@ -1,3 +1,4 @@
-__pycache__
+__pycache__/
 poetry.lock
 example.py
+dist/
