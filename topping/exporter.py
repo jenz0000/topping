@@ -6,7 +6,6 @@ from rich.text import Text
 from rich.panel import Panel
 from rich.console import group
 from rich.padding import Padding
-from rich.console import Console
 from rich import print as rich_print
 
 # topping
@@ -15,8 +14,15 @@ from topping.model import ToppingModel
 
 
 class ToppingExporter:
-    def __init__(self) -> None:
-        self.console = Console()
+    @group()
+    def get_panels(self, model: ToppingModel) -> Generator:
+        yield self.get_path_panel(model)
+        yield self.get_padding()
+        yield self.get_fields_panel(model)
+
+        if model.error.updated:
+            yield self.get_padding()
+            yield self.get_error_panel(model)
 
     def get_padding(self) -> Padding:
         return Padding("")
@@ -51,17 +57,6 @@ class ToppingExporter:
         error_text = Text(f"\n{model.error.value}", style="light_salmon1")
 
         return Panel(error_text, title="error", style="bright_red")
-
-    @group()
-    def get_panels(self, model: ToppingModel) -> Generator:
-        yield self.get_path_panel(model)
-        yield self.get_padding()
-        yield self.get_fields_panel(model)
-        yield self.get_padding()
-
-        if model.error.updated:
-            yield self.get_error_panel(model)
-            yield self.get_padding()
 
     def export(self, model: ToppingModel) -> None:
         panel = Panel(self.get_panels(model), expand=False)
