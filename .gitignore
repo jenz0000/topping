@@ -1,4 +1,9 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-poetry.lock
-example*
+*.py[cod]
+
+# Distribution / packaging
 dist/
+
+# Poetry
+poetry.lock
