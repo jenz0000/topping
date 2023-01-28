@@ -1,10 +1,26 @@
 from topping import topping
 
 
+def step1():
+    step2()
+
+
+def step2():
+    step3()
+
+
+def step3():
+    step4()
+
+
+def step4():
+    step5()
+
+
 @topping
-def sum(a, b):
-    bb(a, b)
-    return a + b + c
+def main(a, b):
+    step1()
+    return a + b
 
 
-sum(1, 4)
+main(1, 4)
