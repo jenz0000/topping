@@ -44,7 +44,7 @@ class ToppingExporter:
             ("\n kwargs: ", "gold1"),
             (f"{model.kwargs.value}\n", "spring_green2"),
             ("\n runtime: ", "gold1"),
-            (f"{model.runtime.value}\n", "spring_green2"),
+            (f"{model.runtime.value:.20f}\n", "spring_green2"),
             ("\n return: ", "gold1"),
             (f"{model.returns.value}\n", "spring_green2"),
         ]
