@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "topping"
 version = "0.1.0"
-description = ""
+description = "Topping is a Python library for tracking function data."
 authors = ["jenz <2025.jenz@gmail.com>"]
 readme = "README.md"
 
